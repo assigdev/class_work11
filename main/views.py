@@ -1,16 +1,7 @@
-from django.views.generic import CreateView
-from .forms import MyUserCreationForm
-from django.contrib.auth import logout
-from django.shortcuts import HttpResponseRedirect
+from django.shortcuts import render
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class UserCreateView(CreateView):
-    form_class = MyUserCreationForm
-    template_name = 'create.html'
-    success_url = '/'
-
-
-def logout_view(request):
-    logout(request)
-    return HttpResponseRedirect('/')
-
+class SecretView(LoginRequiredMixin, TemplateView):
+    template_name = 'main/secret.html'
